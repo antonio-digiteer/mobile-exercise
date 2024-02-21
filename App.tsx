@@ -11,8 +11,6 @@ const GreetingApp = () => {
     setName(text);
   };
 
-
-
   const handleSubmit = () => {
     if (name) {
 
@@ -30,6 +28,13 @@ const GreetingApp = () => {
     }
   };
 
+    const clearName = () => {
+    if (name === '') {
+      setGreeting("Hello, What's your name?");
+    }
+    setName('');
+      setGreeting("Hello, What's your name?");
+  };
 
 
   return (
@@ -42,9 +47,11 @@ const GreetingApp = () => {
         placeholder="Enter your name"
         value={name}
         onChangeText={handleNameChange}
+        maxLength={20}/>
 
-      />
-      <Button title="Submit" onPress={handleSubmit} />
+         <Button title="Clear"  onPress={clearName} disabled={!name.trim()}/>
+         <Button title="Submit" onPress={handleSubmit} />
+         <Button title="Generate New Emoji"/>
     </View>
   );
 };
