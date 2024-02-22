@@ -1,6 +1,15 @@
 import { Icon } from "@rneui/themed";
 import React, { useState } from "react";
-import { StyleSheet, View, Text, TextInput, Platform, Button, Alert } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Platform,
+  Button,
+  Alert
+} from "react-native";
+
 type EMOJI = {
   id: number;
   name: string;
@@ -71,18 +80,6 @@ const GreetingApp = () => {
           setLastSelectedIndex(newIndex);
         }
       }
-    if (name) {
-      const time = new Date().getHours();
-      let timeGreeting;
-      if (time >= 0 && time < 12) {
-        timeGreeting = 'Good Morning';
-      } else if (time >= 12 && time < 18) {
-        timeGreeting = 'Good Afternoon';
-      } else {
-        timeGreeting = 'Good Evening';
-      }
-
-      setGreeting(`${timeGreeting}, ${name}!`);
     }
   };
 
@@ -113,29 +110,37 @@ const GreetingApp = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        {greeting}
-      </Text>
+      <View style={styles.header}>
+        <Text style={styles.text}>{greeting}</Text>
+
+        {randomEmoji && (
+          <Icon
+            type="entypo"
+            name={randomEmoji.name}
+            color={randomEmoji.color}
+            size={40}
+          />
+        )}
+      </View>
+
       <TextInput
         placeholder="Enter your name"
         value={name}
         onChangeText={handleNameChange}
-        style={styles.input}        
+        style={styles.input}
         maxLength={20}
-      />
-
-      <Button
-        title="Clear"
-        onPress={clearName}
-        disabled={!submitted || isNotValid()}
       />
 
       <View style={styles.buttonContainer}>
         <Button
-          title="Submit"
-          onPress={handleSubmit}
+          title="Clear"
+          onPress={clearName}
+          disabled={!submitted || isNotValid()}
         />
-      {submitted && <Button title="Generate New Emoji" onPress={handleEmoji} />}
+        <Button title="Submit" onPress={handleSubmit} />
+        {submitted && (
+          <Button title="Generate New Emoji" onPress={handleEmoji} />
+        )}
       </View>
     </View>
   );
@@ -144,32 +149,35 @@ const GreetingApp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: Platform.OS === 'android' ? 200 : 0,
-    alignContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#fff",
+    paddingTop: Platform.OS === "android" ? 200 : 0,
+    alignContent: "center",
+    alignItems: "center"
+  },
+  header: {
+    flexDirection: "row"
   },
   text: {
-    fontSize: 25,
+    fontSize: 25
   },
   input: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: "black",
     padding: 10,
     margin: 10,
-    width: '80%',
-    borderRadius: 5,
+    width: "80%",
+    borderRadius: 5
   },
   buttonContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
+    flexDirection: "column",
+    alignItems: "center",
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 20
   },
   button: {
     marginTop: 20,
-    marginBottom: 20,
-  },
+    marginBottom: 20
+  }
 });
 
 export default GreetingApp;
