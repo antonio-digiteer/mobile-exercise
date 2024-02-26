@@ -41,8 +41,8 @@ const emojiData: EMOJI[] = [
 
 const GreetingApp = () => {
   const [name, setName] = useState("");
+  const [greeting, setGreeting] = useState("");
   const [submitted, setIsSubmitted] = useState(false);
-  const [greeting, setGreeting] = useState("Hello, what's your name?");
   const [randomEmoji, setRandomEmoji] = useState<EMOJI | null>(null);
   const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(
     null
@@ -57,38 +57,35 @@ const GreetingApp = () => {
     return name.trim() === "";
   };
 
+  const currentTime = new Date().getHours();
+  const timeChecker = () => {
+    if (currentTime >= 0 && currentTime < 12) {
+      return "Good Morning";
+    } else if (currentTime >= 12 && currentTime < 18) {
+      return "Good Afternoon";
+    } else {
+      return "Good Evening";
+    }
+  };
+
   const handleSubmit = () => {
     if (isNotValid()) {
       Alert.alert("Please enter your name");
       setIsSubmitted(false);
     } else {
       setIsSubmitted(true);
-      if (name) {
-        const time = new Date().getHours();
-        let timeGreeting;
-        if (time >= 0 && time < 12) {
-          timeGreeting = "Good Morning";
-        } else if (time >= 12 && time < 18) {
-          timeGreeting = "Good Afternoon";
-        } else {
-          timeGreeting = "Good Evening";
-        }
-        setGreeting(`${timeGreeting}, ${name}!`);
-        if (!randomEmoji) {
-          const newIndex = getRandomIndex();
-          setRandomEmoji(emojiData[newIndex]);
-          setLastSelectedIndex(newIndex);
-        }
+      setGreeting(timeChecker());
+      if (!randomEmoji) {
+        const newIndex = getRandomIndex();
+        setRandomEmoji(emojiData[newIndex]);
+        setLastSelectedIndex(newIndex);
       }
     }
   };
 
   const clearName = () => {
-    if (name === "") {
-      setGreeting("Hello, What's your name?");
-    }
     setName("");
-    setGreeting("Hello, What's your name?");
+    setGreeting("");
     setIsSubmitted(false);
     setRandomEmoji(null);
     setLastSelectedIndex(null);
@@ -111,9 +108,15 @@ const GreetingApp = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.text}>{greeting}</Text>
+        {submitted ? (
+          <Text style={styles.text}>
+            {greeting}, {name}!
+          </Text>
+        ) : (
+          <Text style={styles.text}>Hello What's your name?</Text>
+        )}
 
-        {randomEmoji && (
+        {submitted && randomEmoji && (
           <Icon
             type="entypo"
             name={randomEmoji.name}
