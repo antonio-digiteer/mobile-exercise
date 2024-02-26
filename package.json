@@ -13,6 +13,7 @@
     "format:fix": "prettier --write ."
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.12",
     "@rneui/base": "^4.0.0-rc.8",
     "@rneui/themed": "^4.0.0-rc.8",
     "react": "18.2.0",

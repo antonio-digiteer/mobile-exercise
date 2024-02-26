@@ -9,35 +9,7 @@ import {
   Button,
   Alert
 } from "react-native";
-
-type EMOJI = {
-  id: number;
-  name: string;
-  color: string;
-};
-
-const emojiData: EMOJI[] = [
-  {
-    id: 1,
-    name: "emoji-flirt",
-    color: "red"
-  },
-  {
-    id: 2,
-    name: "emoji-happy",
-    color: "green"
-  },
-  {
-    id: 3,
-    name: "emoji-neutral",
-    color: "grey"
-  },
-  {
-    id: 4,
-    name: "emoji-sad",
-    color: "black"
-  }
-];
+import { EMOJI, emojiData } from "./dummyData";
 
 const GreetingApp = () => {
   const [name, setName] = useState("");
