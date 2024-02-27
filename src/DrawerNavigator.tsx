@@ -11,7 +11,7 @@ export const DrawerNavigator = () => {
     <Drawer.Navigator initialRouteName="HomeScreen">
       <Drawer.Screen name="HomeScreen" component={HomeScreen} />
       <Drawer.Screen name="QuotesScreen" component={QuotesScreen} />
-      <Drawer.Screen name="FactsScreen" component={FactsScreen} />
+      <Drawer.Screen name="Facts" component={FactsScreen} />
     </Drawer.Navigator>
   );
 };
