@@ -13,16 +13,16 @@ export const emojiData: EMOJI[] = [
   {
     id: 2,
     name: "emoji-happy",
-    color: "green"
+    color: "#7D0A0A",
   },
   {
     id: 3,
     name: "emoji-neutral",
-    color: "grey"
+    color: "#FF9800",
   },
   {
     id: 4,
     name: "emoji-sad",
-    color: "black"
+    color: "#5F8670"
   }
 ];

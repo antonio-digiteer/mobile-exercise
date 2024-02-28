@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { Button, Icon, Text } from "@rneui/themed";
-import { EMOJI, emojiData } from "./dummyData";
-import { styles } from "./styles";
+import { EMOJI, emojiData } from "../styles/dummyData";
+import { styles } from "../styles/styles";
 
-export const HomeScreen = ({ route }: any) => {
+export const Home = ({ route }: any) => {
   const { greeting, name } = route.params;
   const [randomEmoji, setRandomEmoji] = useState<EMOJI | null>(null);
   const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(
@@ -32,20 +32,27 @@ export const HomeScreen = ({ route }: any) => {
   }
 
   return (
-    <View>
+    <View style={styles.homecontainer}>
       <Text style={styles.text} h3>
-        {greeting}, {name}!
+        {greeting}, {name}! {""}
         {randomEmoji && (
           <Icon
             type="entypo"
             name={randomEmoji.name}
             color={randomEmoji.color}
-            size={40}
+            size={50}
           />
         )}
       </Text>
+        
+      <Button title="Generate New Emoji" 
+      onPress={handleEmoji}
+      buttonStyle={styles.EmojiButton}
+       />
+    
+      <Button title="Logout"
+      buttonStyle={styles.LogoutButton}/>
 
-      <Button title="Generate New Emoji" onPress={handleEmoji} />
     </View>
   );
 };
