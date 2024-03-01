@@ -11,12 +11,11 @@ type QUOTE = {
 
 export const Quotes = () => {
   const [quote, setQuote] = useState<QUOTE>();
-
   const getQuote = async () => {
     try {
       const response = await fetch("https://api.quotable.io/random");
-      const json = await response.json();
-      setQuote({ id: json.id, content: json.content, author: json.author });
+      const quote: QUOTE = await response.json();
+      setQuote(quote);
     } catch (error) {
       console.error(error);
     }
@@ -26,7 +25,6 @@ export const Quotes = () => {
     <View>
       <View style={styles.apicontainer}>
         {quote ? (
-
           <>
             <Text style={styles.apitext}>"{quote.content}"</Text>
             <Text style={styles.author}>- {quote.author}</Text>
