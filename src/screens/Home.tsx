@@ -3,8 +3,9 @@ import { View } from "react-native";
 import { Button, Icon, Text } from "@rneui/themed";
 import { EMOJI, emojiData } from "../styles/dummyData";
 import { styles } from "../styles/styles";
+import { CommonActions } from '@react-navigation/native';
 
-export const Home = ({ route }: any) => {
+export const Home = ({ route, navigation }: any) => {
   const { greeting, name } = route.params;
   const [randomEmoji, setRandomEmoji] = useState<EMOJI | null>(null);
   const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(
@@ -24,6 +25,17 @@ export const Home = ({ route }: any) => {
     }
     return newIndex;
   };
+
+  const handleLogout = () => {
+    navigation.dispatch(
+    CommonActions.reset({
+      index: 0,
+        routes: [
+          { name: 'LoginScreen' },
+        ],
+       })
+      );
+    };
 
   if (!randomEmoji) {
     const newIndex = getRandomIndex();
@@ -46,13 +58,14 @@ export const Home = ({ route }: any) => {
       </Text>
         
       <Button title="Generate New Emoji" 
-      onPress={handleEmoji}
-      buttonStyle={styles.EmojiButton}
-       />
+        onPress={handleEmoji}
+        buttonStyle={styles.EmojiButton}
+      />
     
       <Button title="Logout"
-      buttonStyle={styles.LogoutButton}/>
-
+        onPress={handleLogout}
+        buttonStyle={styles.LogoutButton}
+      />
     </View>
   );
 };
